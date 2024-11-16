@@ -3,7 +3,6 @@ export const Chains = {
         "rpc": "https://arb-sepolia.g.alchemy.com/v2/8EbEVKiQ3VNG1kZdvAJXG73ylk50WaSB",
         "assets": {
             "USDC": "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d"
-
         }
     },
     "Unichain":{
@@ -25,7 +24,7 @@ export const Chains = {
         }
     },
     "Base": {
-        "rpc": "https://base-mainnet.g.alchemy.com/v2/8EbEVKiQ3VNG1kZdvAJXG73ylk50WaSB",
+        "rpc": "https://base-sepolia.g.alchemy.com/v2/8EbEVKiQ3VNG1kZdvAJXG73ylk50WaSB",
         "assets": {
             "USDC": "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
         }

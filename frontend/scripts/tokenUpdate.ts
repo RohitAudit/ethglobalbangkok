@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
-import { chainsConfig } from "./chainConfig";
-import { MultiChainBalanceFetcher, EthereumConnection } from "./ethereumConnect";
+import { Chains } from "./constants";
+import { MultiChainBalanceFetcher, EthereumConnection } from "./ethereumConnector";
 import { PythPriceService } from "./priceFeed";
 
 export class TokenExtension {
@@ -31,7 +31,7 @@ export class TokenExtension {
    
 
     // Iterate over each chain to fetch balances
-    for (const [chainName, chainData] of Object.entries(chainsConfig)) {
+    for (const [chainName, chainData] of Object.entries(Chains)) {
       const connection = new EthereumConnection(chainData.rpc);
       const chainBalances: Record<string, any> = {};
 
@@ -75,8 +75,7 @@ export class TokenExtension {
       chains: chainsOutput,
       total: totalBalances,
     };
-
-    console.log(JSON.stringify(result, null, 2));
+    return result;
   }
 }
 

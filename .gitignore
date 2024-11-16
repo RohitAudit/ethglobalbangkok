@@ -21,3 +21,7 @@ bin-release/
 previewConfig.json
 .env
 .DS_Store
+
+*.idea
+node_modules
+yarn.lock

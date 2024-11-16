@@ -20,8 +20,8 @@ export class PythPriceService {
       }
 
       // Extract and return only the emaPrice
-      const emaPrice = priceFeed[0].emaPrice?.price || "N/A";
-      const result = emaPrice/100000000
+      const emaPrice = priceFeed[0].getEmaPriceUnchecked().price || "N/A";
+      const result = Number(emaPrice)/100000000
       return result;
     } catch (error) {
       console.error("Error fetching EMA price:", error);
@@ -29,12 +29,3 @@ export class PythPriceService {
     }
   }
 }
-
-// // Use an async function to handle the top-level await
-// async function main() {
-//   const test = new PythPriceService("https://hermes.pyth.network");
-//   const result = await test.getEmaPrice();
-//   console.log(result);
-// }
-
-// main().catch(console.error);
