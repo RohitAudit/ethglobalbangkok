@@ -11,7 +11,7 @@ createRoot(document.getElementById('root')!).render(
         settings={{
           environmentId: import.meta.env.VITE_DYNAMIC_ENVIRONMENT_ID,
           walletConnectors: [ EthereumWalletConnectors ],
-          initialAuthenticationMode: 'connect-only',
+          initialAuthenticationMode: 'connect-only'
         }}
     >
     <App />
