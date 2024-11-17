@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Home, SendHorizontal, PieChart, Activity, Database } from 'lucide-react';
 import HomeScreen from './screens/home/home';
-import { IconLabel, UserData } from './types/userData';
+import { IconLabel } from './types/userData';
 import SendScreen from './screens/send/sendscreen';
 import PortfolioScreen from './screens/portfolio/portfolioscreen';
 import DefiScreen from './screens/defi/defiscreen';
@@ -9,34 +9,30 @@ import ActivityScreen from './screens/activity/activityscreen';
 import NavBar from './components/navbar/navbar';
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import LoginPage from './screens/login/loginScreen';
+import { MultiChainBalanceFetcher } from './utils/ethereumConnector';
+import { AppContextType } from './types/appContext';
+import { PythPriceService } from './utils/priceFeed';
+
+export const AppContext = createContext<AppContextType>({
+  BalanceFetcher: new MultiChainBalanceFetcher(),
+  PriceFetcher: new PythPriceService()
+});
 
 const DashboardUI = () => {
   const [activeTab, setActiveTab] = useState('home');
-  const { user } = useDynamicContext()
-  console.log(import.meta.env)
+  const { user } = useDynamicContext();
 
   const iconLabelMapping: Array<IconLabel> = [
     {label: "home", icon: Home},
     {label: "send", icon: SendHorizontal},
-    {label: "portfolio", icon: PieChart},
-    {label: "activity", icon: Activity},
     {label: "defi", icon: Database},
+    {label: "activity", icon: Activity},
   ]
-
-  // Mock data
-  const userData: UserData  = {
-    totalBalance: 15420.50,
-    assets: [
-      { name: 'ETH', value: 8240.30, amount: '2.75' },
-      { name: 'BTC', value: 5180.20, amount: '0.12' },
-      { name: 'USDC', value: 2000.00, amount: '2000.00' }
-    ]
-  };
 
   const renderContent = () => {
     switch(activeTab) {
       case 'home':
-        return <HomeScreen userData={userData}/>
+        return <HomeScreen/>
       case 'send':
         return <SendScreen/>
       case 'portfolio':
@@ -58,9 +54,12 @@ const DashboardUI = () => {
   }
 
   return (
-    <>
+    <AppContext.Provider value={{
+      BalanceFetcher: new MultiChainBalanceFetcher(),
+      PriceFetcher: new PythPriceService(),
+    }}>
       {!!user ? <HomePage/> : <LoginPage/>}
-    </>
+    </AppContext.Provider>
   );
 };
 
